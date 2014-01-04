@@ -42,11 +42,14 @@ void sum(FILE *fd, char *name) {
 	state = sip_hash_new(key, 2, 4);
 	if (state == NULL) {
 		printf("Can't allocate SipHash state");
+		return;
 	}
 
 	buf = calloc(BUFFER_SIZE, sizeof(uint8_t));
 	if (buf == NULL) {
 		printf("Can't allocate buffer");
+		sip_hash_free(state);
+		return;
 	}
 
 	for (;;) {
